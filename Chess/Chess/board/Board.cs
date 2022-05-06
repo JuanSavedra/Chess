@@ -33,6 +33,9 @@ namespace Chess.board {
         }
 
         public void InsertPiece(Piece p, Position pos) {
+            if (ExistPiece(pos)) {
+                throw new BoardException("There is already a piece in that position");
+            }
             pieces[pos.Line, pos.Column] = p;
             p.position = pos;
         }
