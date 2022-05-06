@@ -8,6 +8,7 @@ using Chess.board;
 namespace chess {
     class ChessGame {
         public Board board { get; private set; }
+        public bool Finished { get; private set; }
         private int m_round;
         private Color m_actuallyPlayer;
 
@@ -15,7 +16,8 @@ namespace chess {
             board = new Board(8, 8);
             m_round = 1;
             m_actuallyPlayer = Color.White;
-            InserPieces();
+            Finished = false;
+            InsertPiece();
         }
 
         public void ExecuteMovements(Position origin, Position destine) { 
@@ -26,7 +28,7 @@ namespace chess {
             //Alterações depois
         }
 
-        private void InserPieces() {
+        private void InsertPiece() {
             //Peças brancas
             board.InsertPiece(new Tower(board, Color.White), new ChessPosition('C', 1).ToPosition());
             board.InsertPiece(new Tower(board, Color.White), new ChessPosition('C', 2).ToPosition());
