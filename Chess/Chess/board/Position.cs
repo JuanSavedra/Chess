@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chess.Tabuleiro {
+namespace Chess.board {
     class Position {
         public int Line { get; set; }
         public int Column { get; set; }
