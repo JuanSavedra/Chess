@@ -5,6 +5,11 @@ using Chess.board.exceptions;
 namespace Chess {
     class Program {
         static void Main(string[] args) {
+            ChessPosition pos = new ChessPosition('C', 7);
+            Console.WriteLine(pos);
+            Console.WriteLine(pos.ToPosition());
+
+            /*
             try {
                 Board board = new Board(8, 8);
                 board.InsertPiece(new Tower(board, Color.Black), new Position(0, 0));
@@ -17,6 +22,7 @@ namespace Chess {
             catch (BoardException e) {
                 Console.WriteLine(e.Message);
             }
+            */
         }
     }
 }
