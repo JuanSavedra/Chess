@@ -19,5 +19,9 @@ namespace Chess.board {
             this.board = board;
             this.QuantityMovements = 0;
         }
+
+        public void IncrementQuantityMovements() {
+            QuantityMovements++;
+        }
     }
 }
