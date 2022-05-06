@@ -13,8 +13,8 @@ namespace Chess.board {
 
         public Piece() { }
 
-        public Piece(Position position, Color color, Board board) { 
-            this.position = position;
+        public Piece(Board board, Color color) { 
+            this.position = null;
             this.color = color;
             this.board = board;
             this.QuantityMovements = 0;

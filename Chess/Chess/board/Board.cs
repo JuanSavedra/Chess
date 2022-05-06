@@ -21,5 +21,10 @@ namespace Chess.board {
         public Piece piece(int line, int column) {
             return pieces[line, column];
         }
+
+        public void InsertPiece(Piece p, Position pos) {
+            pieces[pos.Line, pos.Column] = p;
+            p.position = pos;
+        }
     }
 }
