@@ -20,6 +20,19 @@ namespace Chess.board {
             this.QuantityMovements = 0;
         }
 
+        public bool ExistPossibleMovements() {
+            bool[,] mat = PossibleMovements();
+            for (int l = 0; l < board.Line; l++) {
+                for (int c = 0; c < board.Column; c++) {
+                    if (mat[l, c]) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public abstract bool[,] PossibleMovements();
 
         public void IncrementQuantityMovements() {

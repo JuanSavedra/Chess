@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Chess.board;
+using Chess.board.exceptions;
 
 namespace chess {
     class ChessGame {
@@ -32,6 +33,20 @@ namespace chess {
             ExecuteMovements(origin, destine);
             Shift++;
             ChangePlayer();
+        }
+
+        public void ValidOriginPosition(Position pos) {
+            if (board.piece(pos) == null) {
+                throw new BoardException("Invalid origin position");
+            }
+
+            if (CurrentPlayer != board.piece(pos).color) {
+                throw new BoardException("This piece is not your");
+            }
+
+            if (!board.piece(pos).ExistPossibleMovements()) {
+                throw new BoardException("Not have possible movements");
+            }
         }
 
         private void ChangePlayer() {

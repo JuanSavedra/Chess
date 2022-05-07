@@ -9,29 +9,30 @@ namespace Chess {
                 ChessGame game = new ChessGame();
 
                 while (!game.Finished) {
-                    /* Commits que eu pulei
-                    - Movimento do rei (FEITO)
-                    - Movimento da torre (FEITO)
-                    - Testes de possíveis movimentos (FEITO)
-                    - Mudando o turno
-                    */
+                    try {
+                        Console.Clear();
+                        Window.PrintBoard(game.board);
+                        Console.WriteLine($"\nShift: {game.Shift}");
+                        Console.WriteLine($"Waiting move: {game.CurrentPlayer}");
 
-                    Console.Clear();
-                    Window.PrintBoard(game.board);
-                    Console.WriteLine($"\nShift: {game.Shift}");
-                    Console.WriteLine($"Waiting move: {game.CurrentPlayer}");
+                        Console.Write("\nOrigin: ");
+                        Position origin = Window.ReadChessPosition().ToPosition();
+                        game.ValidOriginPosition(origin);
 
-                    Console.Write("\nOrigin: ");
-                    Position origin = Window.ReadChessPosition().ToPosition();
-                    bool[,] possiblePositions = game.board.piece(origin).PossibleMovements();
-                    
-                    Console.Clear();
+                        bool[,] possiblePositions = game.board.piece(origin).PossibleMovements();
 
-                    Window.PrintBoard(game.board, possiblePositions);
-                    Console.Write("\nDestine: ");
-                    Position destine = Window.ReadChessPosition().ToPosition();
+                        Console.Clear();
 
-                    game.MakePlay(origin, destine);
+                        Window.PrintBoard(game.board, possiblePositions);
+                        Console.Write("\nDestine: ");
+                        Position destine = Window.ReadChessPosition().ToPosition();
+
+                        game.MakePlay(origin, destine);
+                    }
+                    catch (BoardException e) { 
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
 
                 Window.PrintBoard(game.board);
