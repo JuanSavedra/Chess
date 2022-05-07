@@ -9,6 +9,13 @@ namespace Chess {
                 ChessGame game = new ChessGame();
 
                 while (!game.Finished) {
+                    /* Commits que eu pulei
+                    - Movimento do rei (FEITO)
+                    - Movimento da torre
+                    - Testes de possíveis movimentos
+                    - Mudando o turno
+                    */
+
                     Console.Clear();
                     Window.PrintBoard(game.board);
                     Console.WriteLine($"\nShift: {game.Shift}");
