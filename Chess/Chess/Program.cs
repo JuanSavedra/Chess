@@ -12,7 +12,7 @@ namespace Chess {
                     /* Commits que eu pulei
                     - Movimento do rei (FEITO)
                     - Movimento da torre (FEITO)
-                    - Testes de possíveis movimentos
+                    - Testes de possíveis movimentos (FEITO)
                     - Mudando o turno
                     */
 
