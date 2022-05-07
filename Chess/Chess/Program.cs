@@ -11,7 +11,7 @@ namespace Chess {
                 while (!game.Finished) {
                     /* Commits que eu pulei
                     - Movimento do rei (FEITO)
-                    - Movimento da torre
+                    - Movimento da torre (FEITO)
                     - Testes de possíveis movimentos
                     - Mudando o turno
                     */
