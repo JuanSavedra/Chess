@@ -9,13 +9,13 @@ namespace chess {
     class ChessGame {
         public Board board { get; private set; }
         public bool Finished { get; private set; }
-        private int m_round;
-        private Color m_actuallyPlayer;
+        public int Shift { get; private set; }
+        public Color CurrentPlayer { get; private set; }
 
         public ChessGame() {
             board = new Board(8, 8);
-            m_round = 1;
-            m_actuallyPlayer = Color.White;
+            Shift = 1;
+            CurrentPlayer = Color.White;
             Finished = false;
             InsertPiece();
         }
@@ -26,6 +26,21 @@ namespace chess {
             Piece capturatedPiece = board.RemovePiece(destine);
             board.InsertPiece(p, destine);
             //Alterações depois
+        }
+
+        public void MakePlay(Position origin, Position destine) {
+            ExecuteMovements(origin, destine);
+            Shift++;
+            ChangePlayer();
+        }
+
+        private void ChangePlayer() {
+            if (CurrentPlayer == Color.White) {
+                CurrentPlayer = Color.Black;
+            }
+            else {
+                CurrentPlayer = Color.White;
+            }
         }
 
         private void InsertPiece() {

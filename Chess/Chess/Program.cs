@@ -11,13 +11,20 @@ namespace Chess {
                 while (!game.Finished) {
                     Console.Clear();
                     Window.PrintBoard(game.board);
+                    Console.WriteLine($"\nShift: {game.Shift}");
+                    Console.WriteLine($"Waiting move: {game.CurrentPlayer}");
 
                     Console.Write("\nOrigin: ");
                     Position origin = Window.ReadChessPosition().ToPosition();
-                    Console.Write("Destine: ");
+                    bool[,] possiblePositions = game.board.piece(origin).PossibleMovements();
+                    
+                    Console.Clear();
+
+                    Window.PrintBoard(game.board, possiblePositions);
+                    Console.Write("\nDestine: ");
                     Position destine = Window.ReadChessPosition().ToPosition();
 
-                    game.ExecuteMovements(origin, destine);
+                    game.MakePlay(origin, destine);
                 }
 
                 Window.PrintBoard(game.board);
