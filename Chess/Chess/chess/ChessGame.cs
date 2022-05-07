@@ -49,6 +49,12 @@ namespace chess {
             }
         }
 
+        public void ValidDestinePosition(Position origin, Position destine) {
+            if (!board.piece(origin).CanMoveFor(destine)) {
+                throw new BoardException("Invalid destine position");
+            }
+        }
+
         private void ChangePlayer() {
             if (CurrentPlayer == Color.White) {
                 CurrentPlayer = Color.Black;

@@ -33,6 +33,10 @@ namespace Chess.board {
             return false;
         }
 
+        public bool CanMoveFor(Position pos) {
+            return PossibleMovements()[pos.Line, pos.Column];
+        }
+
         public abstract bool[,] PossibleMovements();
 
         public void IncrementQuantityMovements() {

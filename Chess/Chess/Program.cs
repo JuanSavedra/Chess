@@ -26,6 +26,7 @@ namespace Chess {
                         Window.PrintBoard(game.board, possiblePositions);
                         Console.Write("\nDestine: ");
                         Position destine = Window.ReadChessPosition().ToPosition();
+                        game.ValidDestinePosition(origin, destine);
 
                         game.MakePlay(origin, destine);
                     }
