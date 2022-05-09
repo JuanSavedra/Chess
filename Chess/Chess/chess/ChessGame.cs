@@ -13,6 +13,7 @@ namespace chess {
         public bool Check { get; private set; }
         public int Shift { get; private set; }
         public Color CurrentPlayer { get; private set; }
+
         private HashSet<Piece> pieces;
         private HashSet<Piece> capturateds;
 
@@ -42,7 +43,7 @@ namespace chess {
         public void UndoMovement(Position origin, Position destine, Piece capturatedPiece) {
             Piece piece = board.RemovePiece(destine);
             piece.DecrementQuantityMovements();
-            if (capturatedPiece == null) {
+            if (capturatedPiece != null) {
                 board.InsertPiece(capturatedPiece, destine);
                 capturateds.Remove(capturatedPiece);
             }
@@ -115,7 +116,7 @@ namespace chess {
 
         public HashSet<Piece> PiecesInGame(Color color) {
             HashSet<Piece> aux = new HashSet<Piece>();
-            foreach (Piece x in capturateds) {
+            foreach (Piece x in pieces) {
                 if (x.color == color) {
                     aux.Add(x);
                 }
@@ -134,7 +135,7 @@ namespace chess {
             }
         }
 
-        private Piece King(Color color) {
+        private Piece PieceKing(Color color) {
             foreach (Piece x in PiecesInGame(color)) { 
                 if (x is King) {
                     return x;
@@ -145,7 +146,7 @@ namespace chess {
         }
 
         public bool IsInCheck(Color color) {
-            Piece K = King(color);
+            Piece K = PieceKing(color);
 
             if (K == null) {
                 throw new BoardException("Not exists king in this color");

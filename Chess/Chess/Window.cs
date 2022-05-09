@@ -53,6 +53,9 @@ namespace Chess.board {
             PrintCapturatedPieces(game);
             Console.WriteLine($"\nShift: {game.Shift}");
             Console.WriteLine($"Waiting move: {game.CurrentPlayer}");
+            if (game.Check) {
+                Console.WriteLine("Check!");
+            }
         }
 
         public static void PrintCapturatedPieces(ChessGame game) {
