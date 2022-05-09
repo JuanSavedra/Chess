@@ -11,9 +11,7 @@ namespace Chess {
                 while (!game.Finished) {
                     try {
                         Console.Clear();
-                        Window.PrintBoard(game.board);
-                        Console.WriteLine($"\nShift: {game.Shift}");
-                        Console.WriteLine($"Waiting move: {game.CurrentPlayer}");
+                        Window.PrintGame(game);
 
                         Console.Write("\nOrigin: ");
                         Position origin = Window.ReadChessPosition().ToPosition();

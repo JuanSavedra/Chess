@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Chess.board;
+using chess;
 
 namespace Chess.board {
     class Window {
@@ -44,6 +46,29 @@ namespace Chess.board {
             char column = s[0];
             int line = int.Parse(s[1] + " ");
             return new ChessPosition(column, line);
+        }
+
+        public static void PrintGame(ChessGame game) {
+            PrintBoard(game.board);
+            PrintCapturatedPieces(game);
+            Console.WriteLine($"\nShift: {game.Shift}");
+            Console.WriteLine($"Waiting move: {game.CurrentPlayer}");
+        }
+
+        public static void PrintCapturatedPieces(ChessGame game) {
+            Console.WriteLine("Capturated pieces: ");
+            Console.Write("White: ");
+            PrintSet(game.CapturatedPieces(Color.White));
+            Console.Write("Black: ");
+            PrintSet(game.CapturatedPieces(Color.Black));
+        }
+
+        public static void PrintSet(HashSet<Piece> set) {
+            Console.Write("[");
+            foreach (Piece x in set) {
+                Console.Write(x + " ");
+            }
+            Console.Write("] ");
         }
 
         public static void PrintPiece(Piece piece) {
