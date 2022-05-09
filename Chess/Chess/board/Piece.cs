@@ -42,5 +42,9 @@ namespace Chess.board {
         public void IncrementQuantityMovements() {
             QuantityMovements++;
         }
+
+        public void DecrementQuantityMovements() {
+            QuantityMovements--;
+        }
     }
 }
