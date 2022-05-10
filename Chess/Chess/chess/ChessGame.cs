@@ -109,10 +109,11 @@ namespace chess {
                 for (int l = 0; l < board.Line; l++) {
                     for (int c = 0; c < board.Line; c++) {
                         if (mat[l, c]) {
+                            Position origin = x.position;
                             Position destine = new Position(l, c);
-                            Piece capturatedPiece = ExecuteMovements(x.position, destine);
+                            Piece capturatedPiece = ExecuteMovements(origin, destine);
                             bool checkTest = IsInCheck(color);
-                            UndoMovement(x.position, destine, capturatedPiece);
+                            UndoMovement(origin, destine, capturatedPiece);
                             if (!IsInCheck(color)) {
                                 return false;
                             }

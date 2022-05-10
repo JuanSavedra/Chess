@@ -53,8 +53,14 @@ namespace Chess.board {
             PrintCapturatedPieces(game);
             Console.WriteLine($"\nShift: {game.Shift}");
             Console.WriteLine($"Waiting move: {game.CurrentPlayer}");
-            if (game.Check) {
-                Console.WriteLine("Check!");
+            if (!game.Finished) {
+                if (game.Check) {
+                    Console.WriteLine("Check!");
+                }
+            }
+            else {
+                Console.WriteLine("Checkmate!");
+                Console.WriteLine($"Winner: {game.CurrentPlayer}");
             }
         }
 
