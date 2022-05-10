@@ -65,8 +65,13 @@ namespace chess {
                 Check = false;
             }
 
-            Shift++;
-            ChangePlayer();
+            if (CheckmateTest(Adversary(CurrentPlayer))) {
+                Finished = true;
+            }
+            else {
+                Shift++;
+                ChangePlayer();
+            }
         }
 
         public void ValidOriginPosition(Position pos) {
@@ -89,18 +94,34 @@ namespace chess {
             }
         }
 
-        private void ChangePlayer() {
-            if (CurrentPlayer == Color.White) {
-                CurrentPlayer = Color.Black;
-            }
-            else {
-                CurrentPlayer = Color.White;
-            }
-        }
-
         public void InsertNewPiece(char column, int line, Piece piece) {
             board.InsertPiece(piece, new ChessPosition(column, line).ToPosition());
             pieces.Add(piece);
+        }
+
+        public bool CheckmateTest(Color color) {
+            if (!IsInCheck(color)) {
+                return false;
+            }
+
+            foreach(Piece x in PiecesInGame(color)) {
+                bool[,] mat = x.PossibleMovements();
+                for (int l = 0; l < board.Line; l++) {
+                    for (int c = 0; c < board.Line; c++) {
+                        if (mat[l, c]) {
+                            Position destine = new Position(l, c);
+                            Piece capturatedPiece = ExecuteMovements(x.position, destine);
+                            bool checkTest = IsInCheck(color);
+                            UndoMovement(x.position, destine, capturatedPiece);
+                            if (!IsInCheck(color)) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
         public HashSet<Piece> CapturatedPieces(Color color) { 
@@ -124,6 +145,15 @@ namespace chess {
 
             aux.ExceptWith(CapturatedPieces(color));
             return aux;
+        }
+
+        private void ChangePlayer() {
+            if (CurrentPlayer == Color.White) {
+                CurrentPlayer = Color.Black;
+            }
+            else {
+                CurrentPlayer = Color.White;
+            }
         }
 
         private Color Adversary(Color color) {
