@@ -89,7 +89,7 @@ namespace chess {
         }
 
         public void ValidDestinePosition(Position origin, Position destine) {
-            if (!board.piece(origin).CanMoveFor(destine)) {
+            if (!board.piece(origin).IsPossibleMove(destine)) {
                 throw new BoardException("Invalid destine position");
             }
         }

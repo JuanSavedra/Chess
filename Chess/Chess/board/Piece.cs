@@ -33,7 +33,7 @@ namespace Chess.board {
             return false;
         }
 
-        public bool CanMoveFor(Position pos) {
+        public bool IsPossibleMove(Position pos) {
             return PossibleMovements()[pos.Line, pos.Column];
         }
 
