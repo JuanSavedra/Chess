@@ -57,6 +57,21 @@ namespace chess {
                 board.InsertPiece(tower, destineTower);
             }
 
+            //Jogada especial # En passant
+            if (piece is Pawn) {
+                if (origin.Column != destine.Column && capturatedPiece == null) {
+                    Position positionPawn;
+                    if (piece.color == Color.White) {
+                        positionPawn = new Position(destine.Line + 1, destine.Column);
+                    }
+                    else {
+                        positionPawn = new Position(destine.Line - 1, destine.Column);
+                    }
+                    capturatedPiece = board.RemovePiece(positionPawn);
+                    capturateds.Add(capturatedPiece);
+                }
+            }
+
             return capturatedPiece;
         }
 
@@ -86,6 +101,21 @@ namespace chess {
                 tower.DecrementQuantityMovements();
                 board.InsertPiece(tower, originTower);
             }
+
+            //Jogada especial # En passant
+            if (piece is Pawn) {
+                if (origin.Column != destine.Column && capturatedPiece == VulnerableEnPassant) {
+                    Piece pawn = board.RemovePiece(destine);
+                    Position positionPawn;
+                    if (piece.color == Color.White) {
+                        positionPawn = new Position(3, destine.Column);
+                    }
+                    else {
+                        positionPawn = new Position(4, destine.Column);
+                    }
+                    board.InsertPiece(pawn, positionPawn);
+                }
+            }   
         }
 
         public void MakePlay(Position origin, Position destine) {
