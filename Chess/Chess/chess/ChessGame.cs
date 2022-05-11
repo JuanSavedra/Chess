@@ -14,6 +14,7 @@ namespace chess {
         public int Shift { get; private set; }
         public Color CurrentPlayer { get; private set; }
 
+        private Piece VulnerableEnPassant;
         private HashSet<Piece> pieces;
         private HashSet<Piece> capturateds;
 
@@ -23,6 +24,7 @@ namespace chess {
             CurrentPlayer = Color.White;
             Finished = false;
             Check = false;
+            VulnerableEnPassant = null;
             pieces = new HashSet<Piece>();
             capturateds = new HashSet<Piece>();
             InsertPiece();
@@ -107,6 +109,16 @@ namespace chess {
             else {
                 Shift++;
                 ChangePlayer();
+            }
+
+            Piece piece = board.piece(destine);
+            
+            //Jogada especial # En passant
+            if (piece is Pawn && (destine.Line == origin.Line - 2 || destine.Line == origin.Line + 2)) {
+                VulnerableEnPassant = piece;
+            }
+            else {
+                VulnerableEnPassant = null;
             }
         }
 
