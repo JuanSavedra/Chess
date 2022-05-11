@@ -134,9 +134,33 @@ namespace chess {
                     (piece.color == Color.Black && destine.Line == 7)) {
                     piece = board.RemovePiece(destine);
                     pieces.Remove(piece);
-                    Piece queen = new Queen(board, piece.color);
-                    board.InsertPiece(queen, destine);
-                    pieces.Add(queen);
+                    Console.WriteLine("Choose your promotion: (Q, B, H, T)");
+                    char choose = char.Parse(Console.ReadLine().ToUpper());
+                    if (choose == 'Q') {
+                        Piece queen = new Queen(board, piece.color);
+                        board.InsertPiece(queen, destine);
+                        pieces.Add(queen);
+                    }
+                    else if (choose == 'B') {
+                        Piece bishop = new Bishop(board, piece.color);
+                        board.InsertPiece(bishop, destine);
+                        pieces.Add(bishop);
+                    }
+                    else if (choose == 'H') {
+                        Piece horse = new Horse(board, piece.color);
+                        board.InsertPiece(horse, destine);
+                        pieces.Add(horse);
+                    }
+                    else if (choose == 'T') {
+                        Piece tower = new Tower(board, piece.color);
+                        board.InsertPiece(tower, destine);
+                        pieces.Add(tower);
+                    }
+                    else {
+                        Piece queen = new Queen(board, piece.color);
+                        board.InsertPiece(queen, destine);
+                        pieces.Add(queen);
+                    }
                 }
             }
 
@@ -147,8 +171,7 @@ namespace chess {
                 Check = false;
             }
 
-            if (CheckmateTest(Adversary(CurrentPlayer))) {
-                Console.WriteLine("Checkmate!");
+            if (Checkmate(Adversary(CurrentPlayer))) {
                 Finished = true;
             }
             else {
@@ -191,7 +214,7 @@ namespace chess {
             pieces.Add(piece);
         }
 
-        public bool CheckmateTest(Color color) {
+        public bool Checkmate(Color color) {
             if (!IsInCheck(color)) {
                 return false;
             }
