@@ -7,7 +7,11 @@ using Chess.board;
 
 namespace chess {
     class King : Piece {
-        public King(Board board, Color color) : base(board, color) { }
+        private ChessGame game;
+
+        public King(Board board, Color color, ChessGame game) : base(board, color) {
+            this.game = game;
+        }
 
         public override string ToString() {
             return "K";
@@ -16,6 +20,11 @@ namespace chess {
         private bool CanMove(Position pos) {
             Piece p = board.piece(pos);
             return p == null || p.color != color;
+        }
+
+        private bool TestTowerSmallRook(Position pos) {
+            Piece p = board.piece(pos);
+            return p != null && p is Tower && p.color == color && QuantityMovements == 0;
         }
 
         public override bool[,] PossibleMovements() {
@@ -68,6 +77,18 @@ namespace chess {
             pos.DefineValues(position.Line - 1, position.Column - 1);
             if (board.ValidPosition(pos) && CanMove(pos)) {
                 mat[pos.Line, pos.Column] = true;
+            }
+
+            // Jogada Especial # Roque pequeno
+            if (QuantityMovements == 0 && !game.Check) {
+                Position posisitonTowerRight = new Position(position.Line, position.Column + 3);
+                if (TestTowerSmallRook(posisitonTowerRight)) {
+                    Position blankSpace1 = new Position(position.Line, position.Column + 1);
+                    Position blankSpace2 = new Position(position.Line, position.Column + 2);
+                    if (board.piece(blankSpace1) == null && board.piece(blankSpace2) == null) {
+                        mat[position.Line, position.Column + 2] = true; 
+                    }
+                }
             }
 
             return mat;
