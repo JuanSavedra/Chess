@@ -79,14 +79,27 @@ namespace chess {
                 mat[pos.Line, pos.Column] = true;
             }
 
-            // Jogada Especial # Roque pequeno
+            // Jogada Especial
             if (QuantityMovements == 0 && !game.Check) {
+                //Roque pequeno
                 Position posisitonTowerRight = new Position(position.Line, position.Column + 3);
                 if (TestTowerSmallRook(posisitonTowerRight)) {
                     Position blankSpace1 = new Position(position.Line, position.Column + 1);
                     Position blankSpace2 = new Position(position.Line, position.Column + 2);
                     if (board.piece(blankSpace1) == null && board.piece(blankSpace2) == null) {
-                        mat[position.Line, position.Column + 2] = true; 
+                        mat[position.Line, position.Column + 2] = true;
+                    }
+                }
+                //Roque grande
+                Position posisitonTowerLeft = new Position(position.Line, position.Column - 4);
+                if (TestTowerSmallRook(posisitonTowerLeft)) {
+                    Position blankSpace1 = new Position(position.Line, position.Column - 1);
+                    Position blankSpace2 = new Position(position.Line, position.Column - 2);
+                    Position blankSpace3 = new Position(position.Line, position.Column - 3);
+                    if (board.piece(blankSpace1) == null && 
+                        board.piece(blankSpace2) == null && 
+                        board.piece(blankSpace3) == null) {
+                        mat[position.Line, position.Column - 2] = true;
                     }
                 }
             }
