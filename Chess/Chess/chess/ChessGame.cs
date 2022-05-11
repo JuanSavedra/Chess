@@ -32,7 +32,7 @@ namespace chess {
             Piece piece = board.RemovePiece(origin);
             piece.IncrementQuantityMovements();
             Piece capturatedPiece = board.RemovePiece(destine);
-            board.InsertPiece(piece destine);
+            board.InsertPiece(piece, destine);
             if (capturatedPiece != null) {
                 capturateds.Add(capturatedPiece);
             }
@@ -72,7 +72,7 @@ namespace chess {
                 Position originTower = new Position(origin.Line, origin.Column + 3);
                 Position destineTower = new Position(origin.Line, origin.Column + 1);
                 Piece tower = board.RemovePiece(destineTower);
-                tower.IncrementQuantityMovements();
+                tower.DecrementQuantityMovements();
                 board.InsertPiece(tower, originTower);
             }
 
@@ -81,7 +81,7 @@ namespace chess {
                 Position originTower = new Position(origin.Line, origin.Column - 4);
                 Position destineTower = new Position(origin.Line, origin.Column - 1);
                 Piece tower = board.RemovePiece(destineTower);
-                tower.IncrementQuantityMovements();
+                tower.DecrementQuantityMovements();
                 board.InsertPiece(tower, originTower);
             }
         }
@@ -236,7 +236,7 @@ namespace chess {
             InsertNewPiece('B', 1, new Horse(board, Color.White));
             InsertNewPiece('C', 1, new Bishop(board, Color.White));
             InsertNewPiece('D', 1, new Queen(board, Color.White));
-            InsertNewPiece('E', 1, new King(board, Color.White));
+            InsertNewPiece('E', 1, new King(board, Color.White, this));
             InsertNewPiece('F', 1, new Bishop(board, Color.White));
             InsertNewPiece('G', 1, new Horse(board, Color.White));
             InsertNewPiece('H', 1, new Tower(board, Color.White));
@@ -256,7 +256,7 @@ namespace chess {
             InsertNewPiece('B', 8, new Horse(board, Color.Black));
             InsertNewPiece('C', 8, new Bishop(board, Color.Black));
             InsertNewPiece('D', 8, new Queen(board, Color.Black));
-            InsertNewPiece('E', 8, new King(board, Color.Black));
+            InsertNewPiece('E', 8, new King(board, Color.Black, this));
             InsertNewPiece('F', 8, new Bishop(board, Color.Black));
             InsertNewPiece('G', 8, new Horse(board, Color.Black));
             InsertNewPiece('H', 8, new Tower(board, Color.Black));
