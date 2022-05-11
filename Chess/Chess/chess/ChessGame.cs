@@ -13,8 +13,8 @@ namespace chess {
         public bool Check { get; private set; }
         public int Shift { get; private set; }
         public Color CurrentPlayer { get; private set; }
+        public Piece VulnerableEnPassant { get; private set; }
 
-        private Piece VulnerableEnPassant;
         private HashSet<Piece> pieces;
         private HashSet<Piece> capturateds;
 

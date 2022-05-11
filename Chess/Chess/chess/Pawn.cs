@@ -7,7 +7,11 @@ using Chess.board;
 
 namespace chess {
     class Pawn : Piece {
-        public Pawn(Board board, Color color) : base(board, color) { }
+        private ChessGame game;
+
+        public Pawn(Board board, Color color, ChessGame game) : base(board, color) {
+            this.game = game;
+        }
 
         public override string ToString() {
             return "P";
@@ -43,6 +47,22 @@ namespace chess {
                 if (board.ValidPosition(pos) && ExistEnemy(pos)) {
                     mat[pos.Line, pos.Column] = true;
                 }
+
+                //Jogada especial en passant
+                if (position.Line == 3) {
+                    Position left = new Position(position.Line, position.Column - 1);
+                    if (board.ValidPosition(left) && 
+                        ExistEnemy(left) && 
+                        board.piece(left) == game.VulnerableEnPassant) {
+                        mat[left.Line, left.Column] = true;
+                    }
+                    Position right = new Position(position.Line, position.Column + 1);
+                    if (board.ValidPosition(right) && 
+                        ExistEnemy(right) && 
+                        board.piece(right) == game.VulnerableEnPassant) {
+                        mat[right.Line, right.Column] = true;
+                    }
+                }
             }
             else {
                 pos.DefineValues(position.Line + 1, position.Column);
@@ -60,6 +80,22 @@ namespace chess {
                 pos.DefineValues(position.Line + 1, position.Column + 1);
                 if (board.ValidPosition(pos) && ExistEnemy(pos)) {
                     mat[pos.Line, pos.Column] = true;
+                }
+
+                //Jogada especial en passant
+                if (position.Line == 4) {
+                    Position left = new Position(position.Line, position.Column - 1);
+                    if (board.ValidPosition(left) &&
+                        ExistEnemy(left) &&
+                        board.piece(left) == game.VulnerableEnPassant) {
+                        mat[left.Line, left.Column] = true;
+                    }
+                    Position right = new Position(position.Line, position.Column + 1);
+                    if (board.ValidPosition(right) &&
+                        ExistEnemy(right) &&
+                        board.piece(right) == game.VulnerableEnPassant) {
+                        mat[right.Line, right.Column] = true;
+                    }
                 }
             }
 
