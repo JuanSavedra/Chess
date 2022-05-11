@@ -126,6 +126,20 @@ namespace chess {
                 throw new BoardException("You can't out yourself in check");
             }
 
+            Piece piece = board.piece(destine);
+
+            //Jogada especial # Promoção
+            if (piece is Pawn) {
+                if ((piece.color == Color.White && destine.Line == 0) || 
+                    (piece.color == Color.Black && destine.Line == 7)) {
+                    piece = board.RemovePiece(destine);
+                    pieces.Remove(piece);
+                    Piece queen = new Queen(board, piece.color);
+                    board.InsertPiece(queen, destine);
+                    pieces.Add(queen);
+                }
+            }
+
             if (IsInCheck(Adversary(CurrentPlayer))) {
                 Check = true;    
             }
@@ -134,6 +148,7 @@ namespace chess {
             }
 
             if (CheckmateTest(Adversary(CurrentPlayer))) {
+                Console.WriteLine("Checkmate!");
                 Finished = true;
             }
             else {
@@ -141,7 +156,6 @@ namespace chess {
                 ChangePlayer();
             }
 
-            Piece piece = board.piece(destine);
             
             //Jogada especial # En passant
             if (piece is Pawn && (destine.Line == origin.Line - 2 || destine.Line == origin.Line + 2)) {
@@ -294,7 +308,6 @@ namespace chess {
 
             //Peças pretas
             /* Linha 1 */
-            InsertNewPiece('A', 8, new Tower(board, Color.Black));
             InsertNewPiece('B', 8, new Horse(board, Color.Black));
             InsertNewPiece('C', 8, new Bishop(board, Color.Black));
             InsertNewPiece('D', 8, new Queen(board, Color.Black));
@@ -303,7 +316,6 @@ namespace chess {
             InsertNewPiece('G', 8, new Horse(board, Color.Black));
             InsertNewPiece('H', 8, new Tower(board, Color.Black));
             /* Linha 2 */
-            InsertNewPiece('A', 7, new Pawn(board, Color.Black, this));
             InsertNewPiece('B', 7, new Pawn(board, Color.Black, this));
             InsertNewPiece('C', 7, new Pawn(board, Color.Black, this));
             InsertNewPiece('D', 7, new Pawn(board, Color.Black, this));
