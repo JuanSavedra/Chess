@@ -29,12 +29,30 @@ namespace chess {
         }
 
         public Piece ExecuteMovements(Position origin, Position destine) { 
-            Piece p = board.RemovePiece(origin);
-            p.IncrementQuantityMovements();
+            Piece piece = board.RemovePiece(origin);
+            piece.IncrementQuantityMovements();
             Piece capturatedPiece = board.RemovePiece(destine);
-            board.InsertPiece(p, destine);
+            board.InsertPiece(piece destine);
             if (capturatedPiece != null) {
                 capturateds.Add(capturatedPiece);
+            }
+
+            //Jogada especial # Roque pequeno
+            if (piece is King && destine.Column == origin.Column + 2) {
+                Position originTower = new Position(origin.Line, origin.Column + 3);
+                Position destineTower = new Position(origin.Line, origin.Column + 1);
+                Piece tower = board.RemovePiece(originTower);
+                tower.IncrementQuantityMovements();
+                board.InsertPiece(tower, destineTower);
+            }
+
+            //Jogada especial # Roque grande
+            if (piece is King && destine.Column == origin.Column - 2) {
+                Position originTower = new Position(origin.Line, origin.Column - 4);
+                Position destineTower = new Position(origin.Line, origin.Column - 1);
+                Piece tower = board.RemovePiece(originTower);
+                tower.IncrementQuantityMovements();
+                board.InsertPiece(tower, destineTower);
             }
 
             return capturatedPiece;
@@ -48,6 +66,24 @@ namespace chess {
                 capturateds.Remove(capturatedPiece);
             }
             board.InsertPiece(piece, origin);
+
+            //Jogada especial # Roque pequeno
+            if (piece is King && destine.Column == origin.Column + 2) {
+                Position originTower = new Position(origin.Line, origin.Column + 3);
+                Position destineTower = new Position(origin.Line, origin.Column + 1);
+                Piece tower = board.RemovePiece(destineTower);
+                tower.IncrementQuantityMovements();
+                board.InsertPiece(tower, originTower);
+            }
+
+            //Jogada especial # Roque grande
+            if (piece is King && destine.Column == origin.Column - 2) {
+                Position originTower = new Position(origin.Line, origin.Column - 4);
+                Position destineTower = new Position(origin.Line, origin.Column - 1);
+                Piece tower = board.RemovePiece(destineTower);
+                tower.IncrementQuantityMovements();
+                board.InsertPiece(tower, originTower);
+            }
         }
 
         public void MakePlay(Position origin, Position destine) {
